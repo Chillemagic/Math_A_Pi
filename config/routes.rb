@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :chats do
+    resources :messages, only: [:create]
+  end
+  resources :models, only: [:index, :show] do
+    collection do
+      post :refresh
+    end
+  end
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
