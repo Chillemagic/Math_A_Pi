@@ -33,9 +33,9 @@ class ChatsController < ApplicationController
   end
 
   def authorize_chat
-    unless @chat.user_id == current_user.id
-      redirect_to chats_path, alert: "You don't have permission to access this chat."
-    end
+    return if @chat.user_id == current_user.id
+
+    redirect_to chats_path, alert: "You don't have permission to access this chat."
   end
 
   def model
