@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :chats do
-    resources :messages, only: [:create]
+  resources :chats, only: %i[new create index show] do
+    resources :messages, only: %i[create]
   end
-  resources :models, only: [:index, :show] do
+  resources :models, only: %i[index show] do
     collection do
       post :refresh
     end
@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   resources :challenges
-
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
