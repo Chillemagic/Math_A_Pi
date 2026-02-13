@@ -1,5 +1,8 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: [:show]
+  # Auth Devise user before showing Chat
+  before_action :authenticate_user!
+  before_action :set_chat, only: %i[show edit update destroy]
+  before_action :authorize_chat, only: %i[show edit update destroy]
 
   def index
     @chats = Chat.order(created_at: :desc)
@@ -27,6 +30,12 @@ class ChatsController < ApplicationController
 
   def set_chat
     @chat = Chat.find(params[:id])
+  end
+
+  def authorize_chat
+    unless @chat.user_id == current_user.id
+      redirect_to chats_path, alert: "You don't have permission to access this chat."
+    end
   end
 
   def model
