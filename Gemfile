@@ -72,6 +72,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "ruby_llm", "~> 1.11"
+gem "ruby_llm", "~> 1.12"
 
 gem "tailwindcss-rails", "~> 4.4"
